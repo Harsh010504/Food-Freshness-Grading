@@ -1,0 +1,13 @@
+name: CI
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  build-test-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: g++ -std=c++17 -O2 src/main.cpp -o freshness && g++ -std=c++17 -O2 tests/test_main.cpp -o unit_tests
+      - name: Unit tests
+        run: ./unit_tests
+      - name: Run demo
+        run: ./freshness demo
